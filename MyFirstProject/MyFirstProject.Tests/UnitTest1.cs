@@ -18,7 +18,7 @@ namespace MyFirstProject.Tests
         [TestMethod]
         public void IsLeapYear_2000_ReturnTrue()
         {
-            var date = new DateTime(200, 1, 1);
+            var date = new DateTime(2000, 1, 1);
             bool result = date.isLeapYear();
             Assert.AreEqual(true, result);
         }
