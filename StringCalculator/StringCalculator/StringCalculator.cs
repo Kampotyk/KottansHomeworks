@@ -1,34 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace StringCalculator
+namespace Calculator
 {
     public class StringCalculator
     {
-        public int Add(string numbers)
-        {
-            int result = 0;
 
-            if (String.IsNullOrEmpty(numbers))
+        public int Add(string input)
+        {          
+            if (input.Length == 0)
             {
-                return result;
+                return 0;
             }
 
-            string delims = ",\n";
+            var numbersStr = StringCalculatorHelper.SplitStringToNumbersArray(input);
+            var numbers = StringCalculatorHelper.ParseStringArrayToIntArray(numbersStr);
+            var negNumbers = StringCalculatorHelper.GetNegativeNumbers(numbers);
 
-            if (numbers.Substring(0, 2).Equals("//") && numbers.Length > 2)
+            if (negNumbers.Length == 0)
             {
-                delims = numbers.Substring(2, 1);
+                return StringCalculatorHelper.GetNumbersSum(numbers);
             }
-
-            var numberList = numbers.Trim().Split(delims.ToCharArray());
-
-            foreach(var number in numberList)
+            else
             {
-                result += Int32.Parse(number);
+                throw new InvalidOperationException(String.Format("Negatives not allowed: {0}", negNumbers));
             }
-
-            return result;
         }
     }
 }
